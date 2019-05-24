@@ -1,92 +1,64 @@
 import pandas as pd
 import numpy as np
-import pickle
-import operator
-from sklearn.svm import SVC
-from sklearn.model_selection import train_test_split as tts
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.preprocessing import LabelEncoder as LE
+import zipfile
 from sklearn.metrics.pairwise import cosine_similarity
-import random
-import nltk
-from nltk.stem.lancaster import LancasterStemmer
 from tfidfvectorgenerator import TfidfVectorGenerator
 from doc2vecgenerator import Doc2VecGenerator
 from sent2vecgenerator import Sent2VecGenerator
 from bertgenerator import BertGenerator
 
-
-class FaqEngine:
-    def __init__(self, faqslist,type):
-        self.faqslist = faqslist
-        self.stemmer = LancasterStemmer()
-        self.le = LE()
+class SentenceSimilarityEvaluation:
+    def __init__(self, zipfilename,type):
+        self.df = None
         self.vectorizers = {"tfidf":TfidfVectorGenerator(),
-							"doc2vec":Doc2VecGenerator(),
+                            "doc2vec":Doc2VecGenerator(),
                             "bert":BertGenerator(),
-							"sent2vec":Sent2VecGenerator()}
-        self.build_model(type)
+                            "sent2vec":Sent2VecGenerator()}
+        self.read_data(zipfilename)   
+        all_questions = self.get_corpus()
+        self.build_model(type,all_questions)
         
-        
-    def cleanup(self, sentence):
-        word_tok = nltk.word_tokenize(sentence)
-        stemmed_words = [self.stemmer.stem(w) for w in word_tok]
-        return ' '.join(stemmed_words)
-        
-    def build_model(self,type):
-        
-        self.vectorizer = self.vectorizers[type]#TfidfVectorizer(min_df=1, stop_words='english')   
-        
-        dataframeslist = [pd.read_csv(csvfile).dropna() for csvfile in self.faqslist]
-        self.data = pd.concat(dataframeslist,  ignore_index=True)
-        self.questions = self.data['Question'].values 
+    def get_corpus(self):
+        q1_column =  self.df["question1"].tolist()
+        q2_column =  self.df["question2"].tolist()
+        unique_qs = set(q1_column + q2_column)
+        return list(unique_qs)
+    
+    def read_data(self,zipfilename):
+        with zipfile.ZipFile(zipfilename) as z:
+            csvfilename = zipfilename.replace("zip","csv")
+            csvfilename = csvfilename.replace("data/","")
+            print(csvfilename)
+            with z.open(csvfilename) as f:
+                self.df = pd.read_csv(f)
+        self.df = self.df.drop(['id', 'qid1', 'qid2'], axis=1)
+
+    def build_model(self,type,questions):
+        self.vectorizer = self.vectorizers[type]
+        self.vectorizer.vectorize(questions)
                 
-        questions_cleaned = []
-        for question in self.questions:
-            questions_cleaned.append(self.cleanup(question)) 
-            
-        X = self.vectorizer.vectorize(questions_cleaned)
-                 
-        y = self.data['Class'].values.tolist()
-        y = self.le.fit_transform(y)
-         
-        trainx, testx, trainy, testy = tts(X, y, test_size=.25, random_state=42)
-        
-        self.model = SVC(kernel='linear')
-        self.model.fit(trainx, trainy)
-        # print("SVC:", self.model.score(testx, testy))        
-        
-    def query(self, usr):
-        #print("User typed : " + usr)
-        try:
-            cleaned_usr = self.cleanup(usr)
-            t_usr_array = self.vectorizer.query(cleaned_usr)
-            prediction = self.model.predict(t_usr_array)[0]
-            class_ = self.le.inverse_transform([prediction])[0]
-            #print("Class " + class_)
-            questionset = self.data[self.data['Class']==class_]
-            
-            #threshold = 0.7
-            cos_sims = []
-            for question in questionset['Question']:
-                cleaned_question = self.cleanup(question)
-                question_arr = self.vectorizer.query(cleaned_question)
-                sims = cosine_similarity(question_arr, t_usr_array)
-                #if sims > threshold:
-                cos_sims.append(sims)
-                
-            #print("scores " + str(cos_sims))                
-            if len(cos_sims) > 0:
-                ind = cos_sims.index(max(cos_sims)) 
-                #print(ind)
-                #print(questionset.index[ind])
-                return self.data['Answer'][questionset.index[ind]]
-        except Exception as e:
-            print(e)
-            return "Could not follow your question [" + usr + "], Try again"
+    def check_duplicate(self):
+        computed_is_duplicate = []
+        n_matching_rows = 0      
+
+        for index, row in self.df.iterrows():
+            q1 = row['question1']
+            q2 = row['question2']
+            is_duplicate = row['is_duplicate']
+            q1_array = self.vectorizer.query(q1)
+            q2_array = self.vectorizer.query(q2)
+            sims = cosine_similarity(q1_array, q2_array)
+            c_is_duplicate = 0
+            if sims[0][0] > 0.9:
+                c_is_duplicate = 1
+            computed_is_duplicate.append(c_is_duplicate)
+            if c_is_duplicate == is_duplicate:
+                n_matching_rows += 1
+        acuracy = n_matching_rows / len(computed_is_duplicate)
+        return accuracy
     
 if __name__ == "__main__":
-    faqslist = ["faqs/Greetings.csv", "faqs/GSTFAQs.csv"]
-    faqmodel = FaqEngine(faqslist,'bert')
-    response = faqmodel.query("Bye")
-    print(response)
+    csvfile = "data/quora_duplicate_train.zip"
+    senteval = SentenceSimilarityEvaluation(csvfile,'tfidf')
+    accuracy = senteval.check_duplicate()
+    print(accuracy)

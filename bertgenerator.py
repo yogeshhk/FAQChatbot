@@ -1,6 +1,6 @@
 # Ref: https://github.com/hanxiao/bert-as-service#building-a-qa-semantic-search-engine-in-3-minutes
 # need to have bert server running in a separate window
-# bert-serving-start -num_worker=1 -model_dir=D:/Yogesh/Education/DataScience/Datasets/uncased_L-12_H-768_A-12 
+# bert-serving-start -num_worker=1 -model_dir=D:/Yogesh/Education/DataScience/Datasets/uncased_L-12_H-768_A-12 -max_seq_len NONE
 
 from bert_serving.client import BertClient
 import numpy as np
@@ -8,7 +8,7 @@ import numpy as np
 class BertGenerator:
     
     def __init__(self):
-        self.bc = BertClient(port=5555, port_out=5556,max_seq_len=None)
+        self.bc = BertClient(port=5555, port_out=5556)
             
     def vectorize(self, clean_questions):
         return self.bc.encode(clean_questions)
