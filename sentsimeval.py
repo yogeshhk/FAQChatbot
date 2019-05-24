@@ -32,6 +32,7 @@ class SentenceSimilarityEvaluation:
             with z.open(csvfilename) as f:
                 self.df = pd.read_csv(f)
         self.df = self.df.drop(['id', 'qid1', 'qid2'], axis=1)
+        self.df = self.df.dropna(axis = 0, how ='any') 
 
     def build_model(self,type,questions):
         self.vectorizer = self.vectorizers[type]
@@ -42,6 +43,8 @@ class SentenceSimilarityEvaluation:
         n_matching_rows = 0      
 
         for index, row in self.df.iterrows():
+            if index == 10:
+                break
             q1 = row['question1']
             q2 = row['question2']
             is_duplicate = row['is_duplicate']
@@ -54,11 +57,11 @@ class SentenceSimilarityEvaluation:
             computed_is_duplicate.append(c_is_duplicate)
             if c_is_duplicate == is_duplicate:
                 n_matching_rows += 1
-        acuracy = n_matching_rows / len(computed_is_duplicate)
+        accuracy = n_matching_rows / len(computed_is_duplicate)
         return accuracy
     
 if __name__ == "__main__":
     csvfile = "data/quora_duplicate_train.zip"
-    senteval = SentenceSimilarityEvaluation(csvfile,'tfidf')
+    senteval = SentenceSimilarityEvaluation(csvfile,'doc2vec')
     accuracy = senteval.check_duplicate()
     print(accuracy)
