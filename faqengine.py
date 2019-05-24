@@ -13,6 +13,7 @@ from nltk.stem.lancaster import LancasterStemmer
 from tfidfvectorgenerator import TfidfVectorGenerator
 from doc2vecgenerator import Doc2VecGenerator
 from sent2vecgenerator import Sent2VecGenerator
+from bertgenerator import BertGenerator
 
 
 class FaqEngine:
@@ -22,6 +23,7 @@ class FaqEngine:
         self.le = LE()
         self.vectorizers = {"tfidf":TfidfVectorGenerator(),
 							"doc2vec":Doc2VecGenerator(),
+                            "bert":BertGenerator(),
 							"sent2vec":Sent2VecGenerator()}
         self.build_model(type)
         
@@ -85,6 +87,6 @@ class FaqEngine:
     
 if __name__ == "__main__":
     faqslist = ["faqs/Greetings.csv", "faqs/GSTFAQs.csv"]
-    faqmodel = FaqEngine(faqslist,'sent2vec')
-    response = faqmodel.query("Bye")
+    faqmodel = FaqEngine(faqslist,'bert')
+    response = faqmodel.query("Hi")
     print(response)

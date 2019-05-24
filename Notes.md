@@ -65,6 +65,9 @@ Platforms like IBM Watson, Microsoft Bot Framework, Api.ai, ChatScript and Pando
 * Sentence Similarity
 <img src="images/sensim.png"/>
 
+## Collection of Good Referemces
+* awesome-sentence-embedding https://github.com/Separius/awesome-sentence-embedding
+
 ## A chat with Subham Mahanta
 *	Basic chatbot is of Question Answers type.
 *	AIML is too old, 15-year-old technology, is also like similarity based fetching of answers.
