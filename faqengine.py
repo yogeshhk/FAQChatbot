@@ -12,16 +12,18 @@ import nltk
 from nltk.stem.lancaster import LancasterStemmer
 from tfidfvectorgenerator import TfidfVectorGenerator
 from doc2vecgenerator import Doc2VecGenerator
-
+from sent2vecgenerator import Sent2VecGenerator
 
 
 class FaqEngine:
-    def __init__(self, faqslist):
+    def __init__(self, faqslist,type):
         self.faqslist = faqslist
         self.stemmer = LancasterStemmer()
         self.le = LE()
-        self.vectorizers = {"tfidf":TfidfVectorGenerator(),"doc2vec":Doc2VecGenerator()}
-        self.build_model()
+        self.vectorizers = {"tfidf":TfidfVectorGenerator(),
+							"doc2vec":Doc2VecGenerator(),
+							"sent2vec":Sent2VecGenerator()}
+        self.build_model(type)
         
         
     def cleanup(self, sentence):
@@ -29,9 +31,9 @@ class FaqEngine:
         stemmed_words = [self.stemmer.stem(w) for w in word_tok]
         return ' '.join(stemmed_words)
         
-    def build_model(self):
+    def build_model(self,type):
         
-        self.vectorizer = self.vectorizers["doc2vec"]#TfidfVectorizer(min_df=1, stop_words='english')   
+        self.vectorizer = self.vectorizers[type]#TfidfVectorizer(min_df=1, stop_words='english')   
         
         dataframeslist = [pd.read_csv(csvfile).dropna() for csvfile in self.faqslist]
         self.data = pd.concat(dataframeslist,  ignore_index=True)
@@ -83,6 +85,6 @@ class FaqEngine:
     
 if __name__ == "__main__":
     faqslist = ["faqs/Greetings.csv", "faqs/GSTFAQs.csv"]
-    faqmodel = FaqEngine(faqslist)
-    response = faqmodel.query("Hi")
+    faqmodel = FaqEngine(faqslist,'sent2vec')
+    response = faqmodel.query("Bye")
     print(response)

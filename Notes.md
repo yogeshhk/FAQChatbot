@@ -45,6 +45,26 @@
 *	Rasa NLU has HTTP API and Python support, intent classification, and entity extraction [19]; it is an open source tool that runs locally.
 Platforms like IBM Watson, Microsoft Bot Framework, Api.ai, ChatScript and Pandorabots were developed ten or more years ago. Therefore, their experience provides the most advanced tools and offers the most flexible solutions for businesses.
 
+## Paper Summary: Evaluation of sentence embeddings in downstream and linguistic probing tasks
+(Ref : https://towardsdatascience.com/paper-summary-evaluation-of-sentence-embeddings-in-downstream-and-linguistic-probing-tasks-5e6a8c63aab1)
+* Different Sentence Embeddings
+	*	ELMo (BoW, all layers, 5.5B): From AllenNLP, this is the pre-trained ELMo embedding. This was the English representation that was trained on the 5.5B word corpus (a combination of Wikipedia and the monolingual news crawl).
+	*	FastText (BoW, Common Crawl): From Facebook. It’s just word embeddings, these are transformed to sentence embeddings through averaging of all words. It has a dimensionality of 300.
+	* 	GloVe (BoW, Common Crawl): GloVe, averaged together like other word embeddings. It has a dimensionality of 300.
+	*	Word2Vec (BoW, Google News): Word2Vec, averaged together. It has a dimensionality of 300.
+	*	Skip-Thought: Uses the word2vec approach of predicting surrounding sentences based on the current sentence. It does this through an encoder-decoder architecture. This is our biggest representation, with 4800 dimensions.
+	*	USE (DAN): Google’s basic Universal Sentence Encoder (USE), the Deep Averaging Network (DAN) is available through TensorFlow Hub. USE outputs vectors of 512 dimensions.
+	*	USE (Transformer): Finally, Google’s heavy duty USE, based on the Transformer network. USE outputs vectors of 512 dimensions.
+* Linguistic Tasks: Again taken from SentEval, there were 10 probing tasks that were conducted to evaluate different linguistic properties of sentence embeddings. These are pretty cool. They were:
+	<img src="images/senteval10.png"/>
+* Results show that we aren’t at a place where we truly have a solid universal sentence encoder. There is no sentence embedding that performs best on every task and there’s still a lot we can learn through linguistic probing and testing.
+
+## The Current Best of Universal Word Embeddings and Sentence Embeddings
+(Ref: https://medium.com/huggingface/universal-word-sentence-embeddings-ce48ddc8fc3a)
+* There is a general consensus in the field that the simple approach of directly averaging a sentence’s word vectors (so-called Bag-of-Word approach) gives a strong baseline for many downstream tasks.
+* Sentence Similarity
+<img src="images/sensim.png"/>
+
 ## A chat with Subham Mahanta
 *	Basic chatbot is of Question Answers type.
 *	AIML is too old, 15-year-old technology, is also like similarity based fetching of answers.
