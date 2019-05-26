@@ -43,7 +43,7 @@ class SentenceSimilarityEvaluation:
         n_matching_rows = 0      
 
         for index, row in self.df.iterrows():
-            if index == 10:
+            if index == 10: # Checking only small sample
                 break
             q1 = row['question1']
             q2 = row['question2']
@@ -61,7 +61,7 @@ class SentenceSimilarityEvaluation:
         return accuracy
     
 if __name__ == "__main__":
-    csvfile = "data/quora_duplicate_train.zip"
+    csvfile = "data/quora_duplicate_train_small.zip"
     senteval = SentenceSimilarityEvaluation(csvfile,'doc2vec')
     accuracy = senteval.check_duplicate()
     print(accuracy)
