@@ -8,7 +8,9 @@
 	* Be rare, be valuable
 
 ## To Do
-*	Make beamer 3hr hands-on course, make ipynb for demo, do meetup/seminars
+*	[Done] Make beamer 3hr hands-on course, make ipynb for demo, do meetup/seminars
+* 	Implement sentence embeddings
+    * Universal Sentence Encoder
 *	Build full FAQ chatbot (a retrieval-based atomic question answering bot)
     * Like QnA maker, feed FAQs/Database
     * Options: 
@@ -25,14 +27,9 @@
 * 	https://forum.rasa.com/t/mapping-faq-with-rasa-for-large-dataset-2000/2406
 * 	https://forum.rasa.com/t/faq-bot-knowledge-base/742
 
-## Rasa Experts
-*	Ishwar Sawale, Pune https://www.linkedin.com/in/ishwarsawale/ (“robot” on rasa forum)
-*	Shailesh S Sarda, Pune https://www.linkedin.com/in/shailesh-s-sarda-85a8a2124/ 
-*	Jitesh Gaikwad, Mumbai https://www.linkedin.com/in/jitesh-gaikwad-4b4047b8/
-*	Ajinkya Pathak, Pune https://www.linkedin.com/in/ajinkyanpathak/
-*	Peeyush Kumar, Bengaluru https://www.linkedin.com/in/peeyushk/
 
-## Frameworks
+## Frameworks/Libraries/Datasets (TBD)
+*	Quora Duplicate Queries
 *	ChatScript: open-source, written in C and C++, and publicly available on GitHub for everyone to study and adopt.
 *	Pandorabots: allows businesses to create and host their own chat bots that can have human-like text or voice chats with customers. Parts of this bot platform are licensed under GPL. Pandorabots supports AIML, an XML dialect for creating natural language software agents. Pandorabots provides the base bot Rosie as a template for creating your own. Rosie is available on Github, and is a set of AIML and AIML 2.0 files which can form the base for any chatbot project.
 *	IBM Watson: The first choice as a bot-building platform for 61% of businesses. Python SDK. Free plan.
@@ -44,6 +41,15 @@
 *	Chatscript: A rule-based engine. Rules are created in program scripts through a process called dialog flow scripting.
 *	Rasa NLU has HTTP API and Python support, intent classification, and entity extraction [19]; it is an open source tool that runs locally.
 Platforms like IBM Watson, Microsoft Bot Framework, Api.ai, ChatScript and Pandorabots were developed ten or more years ago. Therefore, their experience provides the most advanced tools and offers the most flexible solutions for businesses.
+
+## Experts/Conferences/Journals (TBD)
+*	SemEval
+*	Ishwar Sawale, Pune https://www.linkedin.com/in/ishwarsawale/ (“robot” on rasa forum)
+*	Shailesh S Sarda, Pune https://www.linkedin.com/in/shailesh-s-sarda-85a8a2124/ 
+*	Jitesh Gaikwad, Mumbai https://www.linkedin.com/in/jitesh-gaikwad-4b4047b8/
+*	Ajinkya Pathak, Pune https://www.linkedin.com/in/ajinkyanpathak/
+*	Peeyush Kumar, Bengaluru https://www.linkedin.com/in/peeyushk/
+
 
 ## Paper Summary: Evaluation of sentence embeddings in downstream and linguistic probing tasks
 (Ref : https://towardsdatascience.com/paper-summary-evaluation-of-sentence-embeddings-in-downstream-and-linguistic-probing-tasks-5e6a8c63aab1)
