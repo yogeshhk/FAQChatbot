@@ -1,6 +1,18 @@
 # FAQs ChatBot
 
-Finds most matching question for your query in the FAQs and retrieves corresponding answer.
+Simple Question-Answer (atomic query) based chatbot framework. 
+Uses similarity based on different vectorizers, to find the matching question then responds with its corresponding answer.
+
+NLP is real AI, the Turing test.
+
+Scope: 
+- Huge demand to take care of mundane queries
+- Scales (leverage, automation, passive)
+- Not much work in vernacular chatbot (serve humanity)
+
+Different than the popular open source chatbot framework, Rasa, where NLU is based on intent and entities, whereas dialog management is based on sequence/LSTM prediction. 
+
+This chatbot is soley based on similarity.
 
 Copyright (C) 2019 Yogesh H Kulkarni
 
