@@ -65,6 +65,18 @@ Platforms like IBM Watson, Microsoft Bot Framework, Api.ai, ChatScript and Pando
 	<img src="images/senteval10.png"/>
 * Results show that we aren’t at a place where we truly have a solid universal sentence encoder. There is no sentence embedding that performs best on every task and there’s still a lot we can learn through linguistic probing and testing.
 
+## FAQ Chatbot MVP
+with Python, Flask, Docker, and Google Cloud Services - Will Scott (Ref: https://towardsdatascience.com/faq-chatbot-mvp-871ab7db94cc)
+Github source: https://github.com/willtscott/inquire-boulder-chatbot
+* Before you sink a chunk of time into a menial scraping task, take a few minutes to look around and see if you can go straight to the source.
+* Similarity Matching
+	- Semantic similarity: SpaCy via pre-trained models that consider words to be similar if they are used in similar contexts. Not much impressive.
+	- KD Tree is a data structure represented in scikit-learn that is useful for storing K-Nearest Neighbor relationships.
+	- Doc2Vec by Gensim results inferior
+* Google Cloud Services to host Flask app by wrapping it in a Docker container and running that on a load-balanced Kubernetes cluster to allow for scaling
+* The Google App Engine is an alternative
+* "I should point out here — As basic as my similarity algorithm is, it still outperforms any of the out-of-the-box ML platforms from the massive Tech Corps services I tested."!!
+
 ## The Current Best of Universal Word Embeddings and Sentence Embeddings
 (Ref: https://medium.com/huggingface/universal-word-sentence-embeddings-ce48ddc8fc3a)
 * There is a general consensus in the field that the simple approach of directly averaging a sentence’s word vectors (so-called Bag-of-Word approach) gives a strong baseline for many downstream tasks.
