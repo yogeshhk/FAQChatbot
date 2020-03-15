@@ -14,12 +14,24 @@
 *	Build full FAQ chatbot (a retrieval-based atomic question answering bot)
     * Like QnA maker, feed FAQs/Database
     * Options: 
-        * RASA NLU based, with auto training file preparation
+        * [DONT PURSUE] RASA NLU based, with auto training file preparation
         * Retrieval based on Word2Vec of sentences and cosine similarity
     * Deploy it on Heroku and give link from Yati.io with documentation and disclaimer
     * Use this as demo PoC to get better chatbot projects
 *	Build State machine (or pre-defined dialog tree) based chatbaot with Rasa NLU and Core
 *	Research: SIG IR: entity extraction, Answer selection is part of Information retrieval 
+
+## Watch/Read the following
+* Embeddings for Everything: Search in the Neural Network Era
+https://www.youtube.com/watch?v=JGHVJXP9NHw
+
+* Applying the four step "Embed, Encode, Attend, Predict" framework to predict document similarity
+https://www.youtube.com/watch?v=HfnjQIhQzME
+
+* BERT Research https://www.youtube.com/watch?v=FKlPCK1uFrc
+
+* Understanding Text: An exciting journey from Probabilistic Models to Neural Networks
+https://confengine.com/odsc-india-2019/proposal/10274/understanding-text-an-exciting-journey-from-probabilistic-models-to-neural-networks
 
 ## Queries Posted on Rasa/Stack Overflow Forums
 *	https://forum.rasa.com/t/building-faq-chatbot-like-qna-maker/3791 I am building a QnA chatbot, say for College admissions. FAQs related to this are already available in form of pairs of Questions and Answers. For ready frameworks such as “QnA Maker”, I believe, one must supply the faqs and it builds the rest. ...
@@ -41,6 +53,17 @@
 *	Chatscript: A rule-based engine. Rules are created in program scripts through a process called dialog flow scripting.
 *	Rasa NLU has HTTP API and Python support, intent classification, and entity extraction [19]; it is an open source tool that runs locally.
 Platforms like IBM Watson, Microsoft Bot Framework, Api.ai, ChatScript and Pandorabots were developed ten or more years ago. Therefore, their experience provides the most advanced tools and offers the most flexible solutions for businesses.
+
+## NTMC Community
+Community Question Answer is to automatically search for relevant answers among many responses provided for a given question (Answer Selection), and search for relevant questions to reuse their existing answers (Question Retrieval).
+
+Some benchmark datasets are listed in the following,
+
+- WikiQA [https://www.microsoft.com/en-us/download/details.aspx?id=52419] is a publicly available set of question and sentence pairs, collected and annotated for research on open-domain question answering by Microsoft Research.
+- TRECQA [https://trec.nist.gov/data/qa.html] dataset is created by Wang et. al. from TREC QA track 8-13 data, with candidate answers automatically selected from each question’s document pool using a combination of overlapping non-stop word counts and pattern matching. This data set is one of the most widely used benchmarks for answer sentence selection.
+- SemEval-2015 Task 3 [http://alt.qcri.org/semeval2015/task3/] consists of two sub-tasks. In Subtask A, given a question (short title + extended description), and several community answers, classify each of the answer as definitely relevance (good), potentially useful (potential), or bad or irrelevant (bad, dialog, non-english other). In Subtask B, given a YES/NO question (short title + extended description), and a list of community answers, decide whether the global answer to the question should be yes, no, or unsure.
+- SemEval-2016 Task 3 [http://alt.qcri.org/semeval2016/task3/] consists two sub-tasks, namely Question-Comment Similarity and Question-Question Similarity. In the Question-Comment Similarity task, given a question from a question-comment thread, rank the comments according to their relevance with respect to the question. In Question-Question Similarity task, given the new question, rerank all similar questions retrieved by a search engine.
+- SemEval-2017 Task 3 [http://alt.qcri.org/semeval2017/task3/] contains two sub-tasks, namely Question Similarity and Relevance Classification. Given the new question and a set of related questions from the collection, the Question Similarity task is to rank the similar questions according to their similarity to the original question. While the Relevance Classification is to rank the answer posts according to their relevance with respect to the question based on a question-answer thread.
 
 ## Experts/Conferences/Journals (TBD)
 *	SemEval
