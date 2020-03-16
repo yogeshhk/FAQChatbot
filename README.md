@@ -18,6 +18,14 @@ Conceptually it is similar to Microsoft's QnA Maker. But the big difference is t
 
 Copyright (C) 2019 Yogesh H Kulkarni
 
+## To Do
+<!-- *	[Done] Make beamer 3hr hands-on course, make ipynb for demo, do meetup/seminars -->
+* Implement sentence embeddings via HuggingFace or Spacy
+*	Build full FAQ chatbot platform using switchable embediddings
+* Deploy it on Heroku and give link from Yati.io with documentation and disclaimer
+*	Research: SIG IR: entity extraction, Answer selection is part of Information retrieval 
+
+
 ## License:
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License

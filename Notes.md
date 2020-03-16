@@ -1,25 +1,13 @@
 # Notes on FAQs ChatBot
 
 ## Thoughts
-* Fun: getting answer automatically is magic!! its a strong AI
-* 3-word mission: For the Future
+* Fun: Getting answer automatically is magic!! its real AI (remember? Turing Test)
+<!-- * 3-word mission: For the Future
 * Principles
 	* Be Different and Better, if you do the same as others you will be the same as others 
-	* Be rare, be valuable
+	* Be rare, be valuable -->
 
-## To Do
-*	[Done] Make beamer 3hr hands-on course, make ipynb for demo, do meetup/seminars
-* 	Implement sentence embeddings
-    * Universal Sentence Encoder
-*	Build full FAQ chatbot (a retrieval-based atomic question answering bot)
-    * Like QnA maker, feed FAQs/Database
-    * Options: 
-        * [DONT PURSUE] RASA NLU based, with auto training file preparation
-        * Retrieval based on Word2Vec of sentences and cosine similarity
-    * Deploy it on Heroku and give link from Yati.io with documentation and disclaimer
-    * Use this as demo PoC to get better chatbot projects
-*	Build State machine (or pre-defined dialog tree) based chatbaot with Rasa NLU and Core
-*	Research: SIG IR: entity extraction, Answer selection is part of Information retrieval 
+
 
 ## Watch/Read the following
 * Embeddings for Everything: Search in the Neural Network Era
