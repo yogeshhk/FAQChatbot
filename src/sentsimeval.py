@@ -61,7 +61,7 @@ class SentenceSimilarityEvaluation:
         return accuracy
     
 if __name__ == "__main__":
-    csvfile = "data/quora_duplicate_train_small.zip"
+    csvfile = "data/quora_duplicate_train_small.csv"
     senteval = SentenceSimilarityEvaluation(csvfile,'doc2vec')
     accuracy = senteval.check_duplicate()
     print(accuracy)

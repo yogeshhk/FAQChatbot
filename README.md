@@ -1,24 +1,22 @@
 # FAQs ChatBot
 
-Simple Question-Answer (atomic query) based chatbot framework. 
-Uses similarity based on different vectorizers, to find the matching question then responds with its corresponding answer.
+Getting answer automatically is magic!! its real AI (remember, the Turing Test?)
 
-NLP is real AI, the Turing test.
+This project is a Simple Question-Answer (atomic query) based chatbot framework. Uses similarity based on different vectorizers, to find the matching question then responds with its corresponding answer.
 
-Scope: 
+Application Scope: 
 - Huge demand to take care of mundane queries
 - Scales (leverage, automation, passive)
 - Not much work in vernacular chatbot (serve humanity)
 
-Different than the popular open source chatbot framework, Rasa, where NLU is based on intent and entities, whereas dialog management is based on sequence/LSTM prediction. 
-
-This chatbot is solely based on similarity.
-
-Conceptually it is similar to Microsoft's QnA Maker. But the big difference is that, if you get whole code-base, your models would be local. Nothing on Server. So better security especially for sensitive data chatbots like HR or Finance.
+Notes:
+- This chatbot is based on category classification first and then to similarity within the selected category.
+- Different than the popular open source chatbot framework, Rasa, where NLU is based on intent and entities, whereas dialog management is based on sequence/LSTM prediction. 
+- Conceptually it is similar to Microsoft's QnA Maker. But the big difference is that, if you get whole this whole github code-base, your models would be local. Nothing on Server. So better security especially for sensitive data chatbots like HR or Finance.
 
 Copyright (C) 2019 Yogesh H Kulkarni
 
-## To Do
+## To Dos
 <!-- *	[Done] Make beamer 3hr hands-on course, make ipynb for demo, do meetup/seminars -->
 * Implement sentence embeddings via HuggingFace or Spacy
 *	Build full FAQ chatbot platform using switchable embediddings

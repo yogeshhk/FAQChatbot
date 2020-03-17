@@ -1,14 +1,5 @@
 # Notes on FAQs ChatBot
 
-## Thoughts
-* Fun: Getting answer automatically is magic!! its real AI (remember? Turing Test)
-<!-- * 3-word mission: For the Future
-* Principles
-	* Be Different and Better, if you do the same as others you will be the same as others 
-	* Be rare, be valuable -->
-
-
-
 ## Watch/Read the following
 * Embeddings for Everything: Search in the Neural Network Era
 https://www.youtube.com/watch?v=JGHVJXP9NHw
