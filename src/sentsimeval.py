@@ -2,10 +2,10 @@ import pandas as pd
 import numpy as np
 import zipfile
 from sklearn.metrics.pairwise import cosine_similarity
-from tfidfvectorgenerator import TfidfVectorGenerator
-from doc2vecgenerator import Doc2VecGenerator
-from sent2vecgenerator import Sent2VecGenerator
-from bertgenerator import BertGenerator
+from vectorizers.tfidfvectorgenerator import TfidfVectorGenerator
+from vectorizers.doc2vecgenerator import Doc2VecGenerator
+from vectorizers.sent2vecgenerator import Sent2VecGenerator
+from vectorizers.bertgenerator import BertGenerator
 
 class SentenceSimilarityEvaluation:
     def __init__(self, zipfilename,type):

@@ -10,14 +10,14 @@ from sklearn.metrics.pairwise import cosine_similarity
 import random
 import nltk
 from nltk.stem.lancaster import LancasterStemmer
-from tfidfvectorgenerator import TfidfVectorGenerator
-from doc2vecgenerator import Doc2VecGenerator
-from sent2vecgenerator import Sent2VecGenerator
-from bertgenerator import BertGenerator
+from vectorizers.tfidfvectorgenerator import TfidfVectorGenerator
+from vectorizers.doc2vecgenerator import Doc2VecGenerator
+from vectorizers.sent2vecgenerator import Sent2VecGenerator
+from vectorizers.bertgenerator import BertGenerator
 
 
 class FaqEngine:
-    def __init__(self, faqslist, type):
+    def __init__(self, faqslist, type='tfidf'):
         self.faqslist = faqslist
         self.stemmer = LancasterStemmer()
         self.le = LE()
@@ -88,7 +88,7 @@ class FaqEngine:
 
 
 if __name__ == "__main__":
-    faqslist = ["faqs/Greetings.csv", "faqs/GSTFAQs.csv"]
+    faqslist = ["data/Greetings.csv", "data/GSTFAQs.csv"]
     faqmodel = FaqEngine(faqslist, 'tfidf')
     response = faqmodel.query("Hi")
     print(response)
