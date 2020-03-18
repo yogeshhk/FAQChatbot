@@ -56,6 +56,6 @@ class SentenceSimilarityEvaluation:
     
 if __name__ == "__main__":
     zipcsvfile = "data/quora_duplicate_train_small.zip"
-    senteval = SentenceSimilarityEvaluation(zipcsvfile,'gensim')
+    senteval = SentenceSimilarityEvaluation(zipcsvfile,'spacy')
     accuracy = senteval.check_duplicate()
     print(accuracy)

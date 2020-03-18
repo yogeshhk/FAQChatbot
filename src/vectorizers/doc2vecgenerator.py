@@ -40,9 +40,10 @@ class Doc2VecGenerator:
 
         transformed_X = []
         # Getting memory error
-        # for item_no,question in enumerate(clean_questions):
-        #     vec = self.model[prefix + '_%s' % item_no] # or model.docvecs[]
-        #     transformed_X.append(vec)
+        for item_no,question in enumerate(clean_questions):
+            clean_usr_msg = gensim.utils.simple_preprocess(question)
+            vec = self.vectorizer.infer_vector(clean_usr_msg)#[prefix + '_%s' % item_no] # or model.docvecs[]
+            transformed_X.append(vec)
             
         return np.array(transformed_X)
         

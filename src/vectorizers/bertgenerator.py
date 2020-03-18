@@ -4,7 +4,8 @@
 
 from bert_serving.client import BertClient
 import numpy as np
-    
+
+## Todo : this is still working on pretrained model, not corpus specific
 class BertGenerator:
     
     def __init__(self, model_dir, size=300):

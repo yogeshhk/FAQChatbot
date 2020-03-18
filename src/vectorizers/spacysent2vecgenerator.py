@@ -2,7 +2,8 @@
 
 import spacy
 import numpy as np
-    
+
+## Todo : this is still working on pretrained model, not corpus specific
 class SpacySent2VecGenerator:
     
     def __init__(self, model_dir, size=300):
@@ -17,7 +18,7 @@ class SpacySent2VecGenerator:
         return np.array(transformed_X)
         
     def query(self, clean_usr_msg):
-        t_usr_array= None
+        t_usr= None
         try:
             t_usr = self.nlp(clean_usr_msg).vector
         except Exception as e:

@@ -28,10 +28,10 @@ class TfidfVectorGenerator:
 
         transformed_X = []
         # Getting memory error
-        # if self.vectorizer:
-        #     # transformed_X = self.vectorizer.transform(clean_questions)
-        #     transformed_X_csr = self.vectorizer.transform(clean_questions)
-        #     transformed_X = transformed_X_csr.A # csr_matrix to numpy matrix
+        if self.vectorizer:
+            # transformed_X = self.vectorizer.transform(clean_questions)
+            transformed_X_csr = self.vectorizer.transform(clean_questions)
+            transformed_X = transformed_X_csr.A # csr_matrix to numpy matrix
         return transformed_X
         
     def query(self, clean_usr_msg):
