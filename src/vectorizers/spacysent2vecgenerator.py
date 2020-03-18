@@ -3,9 +3,9 @@
 import spacy
 import numpy as np
     
-class Sent2VecGenerator:
+class SpacySent2VecGenerator:
     
-    def __init__(self):
+    def __init__(self, model_dir, size=300):
         self.nlp = spacy.load('en')
             
     def vectorize(self, clean_questions):
@@ -22,6 +22,6 @@ class Sent2VecGenerator:
             t_usr = self.nlp(clean_usr_msg).vector
         except Exception as e:
             print(e)
-            return "Could not follow your question [" + usr + "], Try again"
+            return "Could not follow your question [" + t_usr + "], Try again"
             
         return np.array([t_usr])

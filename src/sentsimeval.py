@@ -2,21 +2,15 @@ import pandas as pd
 import numpy as np
 import zipfile
 from sklearn.metrics.pairwise import cosine_similarity
-from vectorizers.tfidfvectorgenerator import TfidfVectorGenerator
-from vectorizers.doc2vecgenerator import Doc2VecGenerator
-from vectorizers.sent2vecgenerator import Sent2VecGenerator
-from vectorizers.bertgenerator import BertGenerator
+from vectorizers.factory import get_vectoriser
 
 class SentenceSimilarityEvaluation:
     def __init__(self, zipfilename,type):
         self.df = None
-        self.vectorizers = {"tfidf":TfidfVectorGenerator(),
-                            "doc2vec":Doc2VecGenerator(),
-                            "bert":BertGenerator(),
-                            "sent2vec":Sent2VecGenerator()}
+
         self.read_data(zipfilename)   
-        all_questions = self.get_corpus()
-        self.build_model(type,all_questions)
+        all_unique_questions = self.get_corpus()
+        self.build_model(type,all_unique_questions)
         
     def get_corpus(self):
         q1_column =  self.df["question1"].tolist()
@@ -35,7 +29,7 @@ class SentenceSimilarityEvaluation:
         self.df = self.df.dropna(axis = 0, how ='any') 
 
     def build_model(self,type,questions):
-        self.vectorizer = self.vectorizers[type]
+        self.vectorizer = get_vectoriser(type)
         self.vectorizer.vectorize(questions)
                 
     def check_duplicate(self):
@@ -61,7 +55,7 @@ class SentenceSimilarityEvaluation:
         return accuracy
     
 if __name__ == "__main__":
-    csvfile = "data/quora_duplicate_train_small.csv"
-    senteval = SentenceSimilarityEvaluation(csvfile,'doc2vec')
+    zipcsvfile = "data/quora_duplicate_train_small.zip"
+    senteval = SentenceSimilarityEvaluation(zipcsvfile,'gensim')
     accuracy = senteval.check_duplicate()
     print(accuracy)

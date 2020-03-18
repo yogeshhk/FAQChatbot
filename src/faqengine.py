@@ -12,7 +12,7 @@ import nltk
 from nltk.stem.lancaster import LancasterStemmer
 from vectorizers.tfidfvectorgenerator import TfidfVectorGenerator
 from vectorizers.doc2vecgenerator import Doc2VecGenerator
-from vectorizers.sent2vecgenerator import Sent2VecGenerator
+from vectorizers.spacysent2vecgenerator import SpacySent2VecGenerator
 from vectorizers.bertgenerator import BertGenerator
 
 
