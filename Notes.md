@@ -1,5 +1,14 @@
 # Notes on FAQs ChatBot
 
+## To Dos
+
+- Need  deep understanding of some complex topic like "semantic similarity via embeddings" 
+- Read papers, implement word2vec by numpy, huggingface, practically use Spacy, 
+- Be up to date with advances in field and GLUE index, T5, tf hub models. 
+- Build slide desk for workshop on Vectorization, quora dataset, have py programs first then notebooks for trying all old/new vectorizers
+ 
+
+
 ## Watch/Read the following
 * Embeddings for Everything: Search in the Neural Network Era
 https://www.youtube.com/watch?v=JGHVJXP9NHw
