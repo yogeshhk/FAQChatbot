@@ -50,7 +50,7 @@ of the License, or any later version.
 * Open http://127.0.0.1:8080/ in the browser
 * Start chating
 
-<img src="faqchatbot.png" alt="chatwindow" width="400"/>
+![chatwindow](https://github.com/yogeshhk/FAQChatbot/blob/master/images/faqchatbot.png)
 
 ## Dependencies:
 * Needs Python 3.6, numpy, scipy, sklearn
