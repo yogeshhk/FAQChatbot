@@ -23,13 +23,6 @@ Copyright (C) 2019 Yogesh H Kulkarni
 * Deploy it on Heroku and give link from Yati.io with documentation and disclaimer
 *	Research: SIG IR: entity extraction, Answer selection is part of Information retrieval 
 
-
-## License:
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or any later version.
-
 ## The way it works:
 * You supply FAQs in the form of csv (comma separated file) having Question-Answer-Class in each row (e.g. "What is GST rate for Toothpaste?,12,rate")
 * Questions are vectorized and kept ready for matching, along with the classifier model [X=vector(question), y=class]
@@ -54,10 +47,6 @@ of the License, or any later version.
 
 ## Dependencies:
 * Needs Python 3.6, numpy, scipy, sklearn
-
-## ToDos
-* Add more training data
-
 
 ## References
 * Bhavani Ravi’s event-bot [code](https://github.com/bhavaniravi/rasa-site-bot), Youtube [Video](https://www.youtube.com/watch?v=ojuq0vBIA-g)
