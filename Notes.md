@@ -2,7 +2,7 @@
 
 ## To Dos
 
-- Need  deep understanding of some complex topic like "semantic similarity via embeddings" 
+- Need  deep understanding of some complex topic like "semantic similarity via embedding" 
 - Read papers, implement word2vec by numpy, huggingface, practically use Spacy, 
 - Be up to date with advances in field and GLUE index, T5, tf hub models. 
 - Build slide desk for workshop on Vectorization, quora dataset, have py programs first then notebooks for trying all old/new vectorizers

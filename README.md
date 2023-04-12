@@ -18,11 +18,11 @@ Copyright (C) 2019 Yogesh H Kulkarni
 
 ## To Dos
 <!-- *	[Done] Make beamer 3hr hands-on course, make ipynb for demo, do meetup/seminars -->
-* Implement sentence embeddings via HuggingFace or Spacy
-*	Build full FAQ chatbot platform using switchable embediddings
-* Deploy it on Heroku and give link from Yati.io with documentation and disclaimer
-*	Research: SIG IR: entity extraction, Answer selection is part of Information retrieval 
-
+* Implement sentence embedding via HuggingFace or Spacy
+* Build full FAQ chatbot platform using switchable embediddings
+* [New] LangChain + Vector Db like GPT-Index or Pinecone (cloud) can be used to perform FAQs
+<!-- * Research: SIG IR: entity extraction, Answer selection is part of Information retrieval 
+ -->
 ## The way it works:
 * You supply FAQs in the form of csv (comma separated file) having Question-Answer-Class in each row (e.g. "What is GST rate for Toothpaste?,12,rate")
 * Questions are vectorized and kept ready for matching, along with the classifier model [X=vector(question), y=class]
