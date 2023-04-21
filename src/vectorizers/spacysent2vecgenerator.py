@@ -7,7 +7,7 @@ import numpy as np
 class SpacySent2VecGenerator:
     
     def __init__(self, model_dir, size=300):
-        self.nlp = spacy.load('en')
+        self.nlp = spacy.load('en_core_web_sm')
             
     def vectorize(self, clean_questions):
         transformed_X = []
