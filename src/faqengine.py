@@ -2,6 +2,7 @@ import os
 
 import nltk
 import pandas as pd
+import numpy as np
 from nltk.stem.lancaster import LancasterStemmer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.model_selection import train_test_split as tts
@@ -17,6 +18,7 @@ class FaqEngine:
         self.stemmer = LancasterStemmer()
         self.le = LE()
         self.classifier = None
+        self.doc_emb = None
         self.build_model(type)
 
     def cleanup(self, sentence):
@@ -36,6 +38,9 @@ class FaqEngine:
             questions_cleaned.append(self.cleanup(question))
 
         X = self.vectorizer.vectorize(questions_cleaned)
+        self.doc_emb = self.vectorizer.vectorize(questions_cleaned)
+        
+        
 
         # Under following cases, we dont do classification
         # 'Class' column abscent
@@ -69,20 +74,23 @@ class FaqEngine:
                 questionset = self.data
 
             # threshold = 0.7
-            cos_sims = []
-            for question in questionset['Question']:
-                cleaned_question = self.cleanup(question)
-                question_arr = self.vectorizer.query(cleaned_question)
-                sims = cosine_similarity(question_arr, t_usr_array)
-                # if sims > threshold:
-                cos_sims.append(sims)
+            
+            # Instead of loop trying vectorized implementation of cosine similarity for fast execution
+            cos_sims = cosine_similarity(self.doc_emb, t_usr_array)
+            # for question in questionset['Question']:
+            #     cleaned_question = self.cleanup(question)
+            #     question_arr = self.vectorizer.query(cleaned_question)
+            #     sims = cosine_similarity(question_arr, t_usr_array)
+            #     # if sims > threshold:
+            #     cos_sims.append(sims)
 
             # print("scores " + str(cos_sims))
             if len(cos_sims) > 0:
-                ind = cos_sims.index(max(cos_sims))
-                # print(ind)
+                ind = np.argmax(cos_sims) #cos_sims.index(max(cos_sims))
+                print(ind,cos_sims[ind],max(cos_sims))
                 # print(questionset.index[ind])
-                return self.data['Answer'][questionset.index[ind]]
+                return self.data['Answer'][ind]
+                #return self.data['Answer'][questionset.index[ind]]
         except Exception as e:
             print(e)
             return "Could not follow your question [" + usr + "], Try again"
