@@ -18,7 +18,7 @@ class FaqEngine:
         self.stemmer = LancasterStemmer()
         self.le = LE()
         self.classifier = None
-        self.doc_emb = None
+        #self.doc_emb = None
         self.build_model(type)
 
     def cleanup(self, sentence):
@@ -27,18 +27,28 @@ class FaqEngine:
         return ' '.join(stemmed_words)
 
     def build_model(self, type):
-
         self.vectorizer = get_vectoriser(type)  # TfidfVectorizer(min_df=1, stop_words='english')
         dataframeslist = [pd.read_csv(csvfile).dropna() for csvfile in self.faqslist]
+        
+        # Data preprocessing and question embedding generation using Pandas apply function
+        # Ideally we need to replace this with vector database implementation in future.
         self.data = pd.concat(dataframeslist, ignore_index=True)
+        self.data['Clean_Question'] = self.data['Question'].apply(lambda x : self.cleanup(x))
+        self.data['Question_embeddings'] = list(self.vectorizer.vectorize(self.data['Clean_Question'].tolist()))
         self.questions = self.data['Question'].values
+        X = self.data['Question_embeddings'].tolist()
 
-        questions_cleaned = []
-        for question in self.questions:
-            questions_cleaned.append(self.cleanup(question))
+        #self.vectorizer = get_vectoriser(type)  # TfidfVectorizer(min_df=1, stop_words='english')
+        #dataframeslist = [pd.read_csv(csvfile).dropna() for csvfile in self.faqslist]
+        
+        
+        
+        # questions_cleaned = []
+        # for question in self.questions:
+        #     questions_cleaned.append(self.cleanup(question))
 
-        X = self.vectorizer.vectorize(questions_cleaned)
-        self.doc_emb = self.vectorizer.vectorize(questions_cleaned)
+        # X = self.vectorizer.vectorize(questions_cleaned)
+        # self.doc_emb = self.vectorizer.vectorize(questions_cleaned)
         
         
 
@@ -75,8 +85,9 @@ class FaqEngine:
 
             # threshold = 0.7
             
-            # Instead of loop trying vectorized implementation of cosine similarity for fast execution
-            cos_sims = cosine_similarity(self.doc_emb, t_usr_array)
+            # Instead of loop trying vectorized implementation of cosine similarity with Panda dataframe for fast execution
+            cos_sims = cosine_similarity(questionset['Question_embeddings'].tolist(), t_usr_array)
+            
             # for question in questionset['Question']:
             #     cleaned_question = self.cleanup(question)
             #     question_arr = self.vectorizer.query(cleaned_question)
@@ -86,10 +97,12 @@ class FaqEngine:
 
             # print("scores " + str(cos_sims))
             if len(cos_sims) > 0:
-                ind = np.argmax(cos_sims) #cos_sims.index(max(cos_sims))
-                print(ind,cos_sims[ind],max(cos_sims))
+                ind = np.argmax(cos_sims)
+                return self.data['Answer'][questionset.index[ind]] 
+                
+                #cos_sims.index(max(cos_sims))
+                # print(ind,cos_sims[ind],max(cos_sims))
                 # print(questionset.index[ind])
-                return self.data['Answer'][ind]
                 #return self.data['Answer'][questionset.index[ind]]
         except Exception as e:
             print(e)

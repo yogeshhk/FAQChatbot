@@ -99,10 +99,13 @@ dependencies:
       - h5py==3.8.0
       - jax==0.4.8
       - keras==2.12.0
+      - langchain==0.0.150
       - libclang==16.0.0
       - markdown==3.4.3
       - ml-dtypes==0.1.0
       - oauthlib==3.2.2
+      - openai==0.27.4
+      - openapi-schema-pydantic==1.2.4
       - opt-einsum==3.3.0
       - protobuf==4.22.3
       - pyasn1==0.5.0
@@ -120,5 +123,6 @@ dependencies:
       - tensorflow-intel==2.12.0
       - tensorflow-io-gcs-filesystem==0.31.0
       - termcolor==2.2.0
+      - tiktoken==0.3.3
       - wrapt==1.14.1
 prefix: C:\Users\yoges\anaconda3\envs\faqchatbot
