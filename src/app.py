@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.secret_key = '12345'
 
 faqs_list = [path.join(FAQs_DATA_FOLDER, "Greetings.csv"), path.join(FAQs_DATA_FOLDER, "BankFAQs.csv")]
-# ToDo: need to debug for 'gensim', 'bert' whereas 'spacy' (only pretrained), 'tfidf' seem ok.
+# ToDo: need to debug for 'gensim', 'bert', 'openai' whereas 'spacy' (only pretrained), 'tfidf' seem ok.
 faqs_engine = FaqEngine(faqs_list, "tfidf")
 
 

@@ -2,6 +2,7 @@ import os
 
 import nltk
 import pandas as pd
+import numpy as np
 from nltk.stem.lancaster import LancasterStemmer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.model_selection import train_test_split as tts
@@ -29,13 +30,17 @@ class FaqEngine:
         self.vectorizer = get_vectoriser(type)  # TfidfVectorizer(min_df=1, stop_words='english')
         dataframeslist = [pd.read_csv(csvfile).dropna() for csvfile in self.faqslist]
         self.data = pd.concat(dataframeslist, ignore_index=True)
+        self.data['Clean_Question'] = self.data['Question'].apply(lambda x : self.cleanup(x))
+        self.data['Question_embeddings'] = list(self.vectorizer.vectorize(self.data['Clean_Question'].tolist()))
         self.questions = self.data['Question'].values
+        X = self.data['Question_embeddings'].tolist()
 
-        questions_cleaned = []
-        for question in self.questions:
-            questions_cleaned.append(self.cleanup(question))
+        # Loop wise version for question embedding generation
+        # questions_cleaned = []
+        # for question in self.questions:
+        #     questions_cleaned.append(self.cleanup(question))
 
-        X = self.vectorizer.vectorize(questions_cleaned)
+        # X = self.vectorizer.vectorize(questions_cleaned)
 
         # Under following cases, we dont do classification
         # 'Class' column abscent
@@ -69,20 +74,27 @@ class FaqEngine:
                 questionset = self.data
 
             # threshold = 0.7
-            cos_sims = []
-            for question in questionset['Question']:
-                cleaned_question = self.cleanup(question)
-                question_arr = self.vectorizer.query(cleaned_question)
-                sims = cosine_similarity(question_arr, t_usr_array)
-                # if sims > threshold:
-                cos_sims.append(sims)
+            
+            # Vectorized implementation of cosine similarity usage for fast execution
+            cos_sims = cosine_similarity(questionset['Question_embeddings'].tolist(), t_usr_array)
+
+            # Loop wise implementation of cosine similarity usage
+            # cos_sims = []
+            # for question in questionset['Question']:
+            #     cleaned_question = self.cleanup(question)
+            #     question_arr = self.vectorizer.query(cleaned_question)
+            #     sims = cosine_similarity(question_arr, t_usr_array)
+            #     # if sims > threshold:
+            #     cos_sims.append(sims)
 
             # print("scores " + str(cos_sims))
             if len(cos_sims) > 0:
-                ind = cos_sims.index(max(cos_sims))
+                ind = np.argmax(cos_sims)
+                return self.data['Answer'][questionset.index[ind]]
+                # ind = cos_sims.index(max(cos_sims))
                 # print(ind)
                 # print(questionset.index[ind])
-                return self.data['Answer'][questionset.index[ind]]
+                
         except Exception as e:
             print(e)
             return "Could not follow your question [" + usr + "], Try again"
