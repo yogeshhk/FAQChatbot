@@ -11,10 +11,13 @@ from sklearn.svm import SVC
 
 from vectorizers.factory import get_vectoriser
 
+import faiss
+
 
 class FaqEngine:
     def __init__(self, faqslist, type='tfidf'):
         self.faqslist = faqslist
+        self.vector_store = None
         self.stemmer = LancasterStemmer()
         self.le = LE()
         self.classifier = None
@@ -34,7 +37,13 @@ class FaqEngine:
         self.data['Question_embeddings'] = list(self.vectorizer.vectorize(self.data['Clean_Question'].tolist()))
         self.questions = self.data['Question'].values
         X = self.data['Question_embeddings'].tolist()
-
+        
+        X = np.array(X)
+        d = X.shape[1]
+        index = faiss.IndexFlatL2(d)
+        if index.is_trained :
+            index.add(X)
+        self.vector_store = index
         # Loop wise version for question embedding generation
         # questions_cleaned = []
         # for question in self.questions:
@@ -76,8 +85,17 @@ class FaqEngine:
             # threshold = 0.7
             
             # Vectorized implementation of cosine similarity usage for fast execution
-            cos_sims = cosine_similarity(questionset['Question_embeddings'].tolist(), t_usr_array)
+            #cos_sims = cosine_similarity(questionset['Question_embeddings'].tolist(), t_usr_array)
 
+            # Top most similar question
+            top_k = 1
+            
+            #calling FAISS search
+            D, I = self.vector_store.search(t_usr_array, top_k)
+            
+            question_index = int(I[0][0])
+            return self.data['Answer'][question_index]
+            
             # Loop wise implementation of cosine similarity usage
             # cos_sims = []
             # for question in questionset['Question']:
@@ -88,9 +106,10 @@ class FaqEngine:
             #     cos_sims.append(sims)
 
             # print("scores " + str(cos_sims))
-            if len(cos_sims) > 0:
+            # commenting this code as we use FAISS vector store. 
+            '''if len(cos_sims) > 0:
                 ind = np.argmax(cos_sims)
-                return self.data['Answer'][questionset.index[ind]]
+                return self.data['Answer'][questionset.index[ind]]'''
                 # ind = cos_sims.index(max(cos_sims))
                 # print(ind)
                 # print(questionset.index[ind])
