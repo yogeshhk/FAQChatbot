@@ -11,7 +11,7 @@ google-auth==2.17.3
 google-auth-oauthlib==1.0.0
 google-pasta==0.2.0
 gputil==1.4.0
-grpcio==1.54.0
+grpcio==1.54.3
 h5py==3.8.0
 jax==0.4.8
 keras==2.12.0
