@@ -14,7 +14,7 @@ gputil==1.4.0
 grpcio==1.54.3
 h5py==3.8.0
 jax==0.4.8
-keras==2.13.1
+keras==3.9.0
 libclang==16.0.0
 markdown==3.4.3
 ml-dtypes==0.1.0
